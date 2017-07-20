@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>extend2</title>
+ </head>
+ <body>
+ <h1>类式继承</h1>
+  <script>
+	function SuperClass() {
+		this.superValue = true;
+	}
+	
+	SuperClass.prototype.getSuperValue = function() {
+		return this.superValue;
+	}
+
+	function SubClass() {
+		this.subValue = false;
+	}
+	
+	//继承
+	SubClass.prototype = new SuperClass();
+
+	//子类添加共有方法
+	SubClass.prototype.getSubValue = function() {
+		return this.subValue;
+	}
+
+	var sub1 = new SubClass();
+	console.log('sub1 superValue : ' + sub1.getSuperValue());
+	console.log('sub1 subValue : ' + sub1.getSubValue());
+	var sub2 = new SubClass();
+	sub2.__proto__.superValue = false;
+	console.log('sub1 superValue变成了 : ' + sub1.getSuperValue());
+	console.log(sub1 instanceof SubClass);
+	console.log(sub1 instanceof SuperClass);
+	console.log(sub1.__proto__ instanceof SuperClass);
+  </script>
+ </body>
+</html>

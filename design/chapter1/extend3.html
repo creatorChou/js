@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>extend3</title>
+ </head>
+ <body>
+  <h1>构造函数继承</h1>
+  <script>
+	function SuperClass(id) {
+		this.books = ['css', 'html', 'javascript'];
+		this.id = id;
+	}
+
+	//父类声明原型方法
+	SuperClass.prototype.showBooks = function() {
+		console.log(this.books);
+	}
+
+	//子类
+	function SubClass(id) {
+		//继承父类
+		SuperClass.call(this, id);
+	}
+
+	var instance1 = new SubClass(1),
+		instance2 = new SubClass(2);
+
+	instance1.books.push('design mode');
+	console.log(instance1.books);
+	console.log(instance2.books);
+
+	//instance1.showBooks();	//报错，instance原型中没有这个方法
+  </script>
+ </body>
+</html>

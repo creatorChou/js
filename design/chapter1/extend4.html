@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>extend4</title>
+ </head>
+ <body>
+  <h1>组合继承</h1>
+  <script>
+	//声明父类
+	function SuperClass(name) {
+		this.name = name;
+		this.books = ['css', 'html', 'javascript'];
+	}
+
+	//父类原型
+	SuperClass.prototype.getName = function() {
+		return this.name;
+	}
+
+	//声明子类
+	function SubClass(name, time) {
+		SuperClass.call(this, name);
+		this.time = time;
+	}
+
+	//类式继承
+	SubClass.prototype = new SuperClass();
+
+	//子类原型
+	SubClass.prototype.getTime = function() {
+		return this.time;
+	}
+
+	var instance1 = new SubClass('i1', 2014);
+	instance1.books.push('design mode');
+	console.log(instance1.books);
+	console.log(instance1.getTime());
+	var instance2 = new SubClass('i2', 2017);
+	console.log(instance2.books);
+	console.log(instance2.getTime());
+
+	console.log(instance1.__proto__);
+  </script>
+ </body>
+</html>

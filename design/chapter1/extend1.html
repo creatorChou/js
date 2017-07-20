@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>extend1</title>
+ </head>
+ <body>
+  <script>
+	//给function添加一个方法属性
+	Function.prototype.addMethod = function(name, fn) {
+		this[name] = fn;
+		return this;
+	}
+
+	var methods = function() {};
+
+	methods.addMethod('showId', function() {
+		console.log('Id: 1');
+		return this;
+	}).addMethod('showName', function() {
+		console.log('Name: zs');
+		return this;
+	});
+
+	methods.showId().showName();
+  </script>
+ </body>
+</html>

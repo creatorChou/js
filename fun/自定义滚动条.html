@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>自定义滚动条</title>
+  <style>
+	#box {
+		width: 200px;
+		height: 200px;
+		border: 1px solid #ccc;
+	}
+	.scroll-wrapper {
+		position: relative;
+		overflow: hidden;
+	}
+	.scroll-content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box" class="scroll-wrapper">
+		<div class="scroll-content">
+			<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit molestiae atque exercitationem asperiores magni aliquid veniam quisquam harum illo perferendis facilis autem nobis dolor aperiam quasi necessitatibus corporis porro minima.</div>
+			<div>Odit accusamus quas eaque architecto beatae reiciendis similique quae accusantium soluta quibusdam quaerat modi autem quia veniam unde animi minima maxime iure corporis dolor suscipit sint delectus voluptates adipisci laudantium.</div>
+		</div>
+	</div>
+	
+<!-- 	<script src="dist/jquery-2.0.3.js"></script> -->
+	<script>
+//		$('.scroll-wrapper').on('mousewheel', function(e) {
+//			var content = $(this).find('.scroll-content'),
+//				top = parseInt(content.css('top'));
+//			content.css('top', top + 10);
+//		});
+		console.log('onwheel' in document.createElement('div'));
+		console.log('DOMMouseScroll' in document.createElement('div'));
+		console.log('onmousewheel' in document.createElement('div'));
+//		$('.scroll-wrapper')[0].onmousewheel = function(e) {
+//			console.log(e.wheelDelta);
+//			//上正(120)下负(-120)
+//		}
+//		$('.scroll-wrapper')[0].onwheel = function(e) {
+//			console.log(e);
+//		}
+//		$('.scroll-wrapper')[0].addEventListener( 'DOMMouseScroll', function(e) {
+//			console.log(e.detail);
+//			//上负(-3)下正(3)
+//		});
+	</script>
+ </body>
+</html>
