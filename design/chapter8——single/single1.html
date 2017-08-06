@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Single</title>
+ </head>
+ <body>
+	<script>
+		//无法修改的静态变量
+		var Conf = (function() {
+			var conf = {
+				MAX_NUM : 100,
+				MIN_NUM : 1,
+				COUNT : 1000
+			};
+			return {
+				get: function(name) {
+					return conf[name];
+				}
+			}
+		})();
+		console.log(Conf.get('MAX_NUM'));
+
+		//惰性单例
+		var LazySingle = (function() {
+			//单例的引用
+			var _instance = null;
+			//单例
+			function Single() {
+				return {
+					a: 1,
+					b: 2
+				}
+			}
+
+			return function() {
+				if(!_instance) {
+					_instance = Single();
+				}
+				return _instance;
+			}
+		})();
+		
+		//调用的时候才创建该对象
+		console.log(LazySingle());
+	</script>
+ </body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>(安全)工厂模式</title>
+ </head>
+ <body>
+  <script>
+	//调用自己原型内的哪个方法取决于传入的type
+	var Factory = function(type, name, slogan) {
+		if(this instanceof Factory) {
+			return new this[type](name, slogan);
+		} else {
+			return new Factory(type, name, slogan);
+		}
+	}
+	Factory.prototype = {
+		Java: function(name, slogan) {
+			this.name = name || 'Java';
+			this.slogan = slogan || 'Everything is object';
+		},
+		Js: function(name, slogan) {
+			this.name = name || 'Js';
+			this.slogan = slogan || 'Function is first class citizen';
+		}
+	};
+	var js = Factory('Js', 'javascript', '啦啦啦');
+	console.log(js);
+  </script>
+ </body>
+</html>

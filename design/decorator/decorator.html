@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>decorator</title>
+</head>
+<body>
+
+<input id="input" type="text">
+
+    <script>
+        var decorator = function(input, fn) {
+            var input = document.getElementById(input);
+            if(typeof input.onclick === 'function') {
+                var oldClickFn = input.onclick;
+                input.onclick = function() {
+                    oldClickFn();
+                    fn();
+                }
+            } else {
+                input.onclick = fn;
+            }
+        }
+        document.getElementById('input').onclick = function() {
+            console.log('first');
+        }
+
+        decorator('input', function() {
+            console.log('second');
+        });
+    </script>
+</body>
+</html>

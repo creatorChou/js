@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>简单工厂模式</title>
+ </head>
+ <body>
+  <script>
+	var Basketball = function() {
+		this.radius = 40;
+		this.weight = 20;
+	}
+	var Soccer = function() {
+		this.radius = 30;
+		this.weight = 15;
+	}
+	var ballFactory = function(name) {
+		switch (name)
+		{
+			case 'basketball':
+				return new Basketball();
+			case 'soccer':
+				return new Soccer();
+			default:
+				return null;
+		}
+	}
+	console.log(ballFactory('basketball'));
+  </script>
+ </body>
+</html>

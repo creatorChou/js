@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>建造者模式</title>
+ </head>
+ <body>
+  <script>
+	var Human = function(param) {
+		this.skill = param && param.skill || '保密';
+		this.hobby = param && param.hobby || '保密';
+	}
+	Human.prototype = {
+		getSkill: function() {
+			return this.skill;
+		},
+		getHobby: function() {
+			return this.hobby;
+		}
+	}
+	var Named = function(name) {
+		(function(name, that) {
+			that.wholeName = name;
+			if(name.indexOf(' ') > -1) {
+				that.firstName = name.split(' ')[0];
+				that.lastName = name.split(' ')[1];
+			}
+		})(name, this);
+	}
+	Named.prototype = {
+		getFullName: function() {
+			return this.name;
+		},
+		getFirstName: function() {
+			return this.firstName;
+		},
+		getLastName: function() {
+			return this.lastName;
+		}
+	}
+	var Person = function(name, skill, hobby) {
+		var _person = new Human({
+			skill: skill,
+			hobby: hobby
+		});
+		_person.name = new Named(name);
+		return _person;
+	}
+	var p1 = new Person('周 烁', 'js', 'play play');
+	console.log(p1.name.getLastName());
+  </script>
+ </body>
+</html>
