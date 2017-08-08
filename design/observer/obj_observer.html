@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>obj</title>
+	</head>
+	<body>
+		<script>
+			var Observer = (function(){
+				var _message = [];
+				return {
+					register: function(type, fn) {
+						if(typeof _message[type] === 'undefined') {
+							_message[type] = [fn];
+						} else {
+							_message[type].push(fn);
+						}
+					},
+					fire: function(type, args) {
+						if(typeof _message[type] === 'undefined') return;
+						var data = {
+							type: type,
+							args: args
+						}
+						for(var i=0; i<_message[type].length; i++) {
+							_message[type][i](data);
+						}
+					},
+					remove: function(type, fn) {
+						if(typeof _message[type] === 'undefined') return;
+						var len = _message[type].length;
+						for(var i=len-1; i>=0; i--) {
+							if(fn === _message[type][i]) {
+								_message[type].splice(i ,1);
+								break;
+							}
+						}
+					}
+				};
+			})();
+
+			// 学生类
+			var Student = function(result) {
+				var that = this;
+				that.result = result;
+				that.say = function() {
+					console.log(that.result);
+				}
+			}
+
+			Student.prototype.answer = function(question) {
+				Observer.register(question, this.say);
+			}
+
+			Student.prototype.sleep = function(question) {
+				Observer.remove(question, this.say);
+			}
+
+			var Teacher = function() {};
+
+			Teacher.prototype.ask = function(question) {
+				console.log('问题是：' + question);
+				Observer.fire(question);
+			}
+
+			var stu1 = new Student('学生1回答了问题');
+			var stu2 = new Student('学生2回答了问题');
+			var stu3 = new Student('学生3回答了问题');
+
+			stu1.answer('设计模式');
+			stu2.answer('设计模式');
+			stu3.answer('设计模式');
+			stu2.answer('观察者模式');
+
+			stu3.sleep('设计模式');
+
+			var t = new Teacher();
+
+			t.ask('设计模式');
+			t.ask('观察者模式');
+		</script>
+	</body>
+</html>
