@@ -7,7 +7,7 @@
 	<body>
 		<script>
 			var Observer = (function(){
-				var _message = [];
+				var _message = {};
 				return {
 					register: function(type, fn) {
 						if(typeof _message[type] === 'undefined') {

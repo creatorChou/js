@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>chain</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div id="d1"></div><div id="d2"></div>
+		<script>
+			// var A = function() {}
+			// A.prototype = {
+			// 	length: 2,
+			// 	size: function() {
+			// 		return this.length;
+			// 	}
+			// }
+			// console.log((new A).size());
+
+			/* var A = function() {
+				return B;
+			}
+
+			var B = A.prototype = {
+				length: 2,
+				size: function() {
+					return this.length;
+				}
+			}
+			console.log(A().size()); */
+
+			var A = function(selector) {
+				return new A.fn.init(selector);
+			}
+
+			A.fn = A.prototype = {
+				init: function(selector) {
+					this[0] = document.getElementById(selector);
+					this.length = 1;
+					return this;
+				},
+				length: 2,
+				size: function() {
+					return this.length;
+				}
+			}
+
+			A.fn.init.prototype = A.fn;
+
+			A.extend = A.fn.extend = function() {
+				var i = 1,
+					len = arguments.length,
+					target = arguments[0],
+					j;
+
+				if(i === len) {
+					target = this;
+					i --;
+				}
+
+				for(; i < len; i++) {
+					for(j in arguments[i]) {
+						target[j] = arguments[i][j];
+					}
+				}
+
+				return target;
+			}
+
+			// var d1 = A('d1');
+			// console.log(d1);
+			// var d2 = A('d2');
+			// console.log(d2);
+			// console.log(d1.size());
+
+			A.fn.extend({getVersion: function() { return '1.0' }})
+			console.log(A('d1').getVersion());
+		</script>
+	</body>
+</html>
