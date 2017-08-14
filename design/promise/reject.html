@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>promise</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		
+		<script>
+		function getNumber() {
+			var p = new Promise(function(resolve, reject) {
+				var num = Math.ceil(Math.random()*10);
+				setTimeout(function() {
+					if(num < 5) {
+						resolve(num);
+					} else {
+						reject(num);
+
+					}
+				}, 2000);
+			});
+			return p;
+		}
+
+		getNumber()
+		.then(
+			function(data) {
+				console.log('resolved');
+				console.log(data);
+				throw new Error('aaa');
+			},
+			// function(data) {
+			// 	console.log('reject');
+			// 	console.log(data);
+			// }
+		)
+		.catch(function(reason) {
+			console.log('rejected');
+			console.log(reason);
+		});
+
+		
+		</script>
+	</body>
+</html>

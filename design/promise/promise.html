@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>promise</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		
+		<script>
+		function runAsync1() {
+			var promise = new Promise(function(resolve, reject) {
+
+				setTimeout(function() {
+					console.log('执行完成1');
+					resolve('随便什么数据1');
+				}, 2000);
+			});
+			return promise;
+		}
+
+		function runAsync2() {
+			var promise = new Promise(function(resolve, reject) {
+				setTimeout(function() {
+					console.log('执行完成2');
+					resolve('随便什么数据2');
+				}, 2000);
+			});
+			return promise;
+		}
+
+		function runAsync3() {
+			var promise = new Promise(function(resolve, reject) {
+				setTimeout(function() {
+					console.log('执行完成3');
+					resolve('随便什么数据3');
+				}, 2000);
+			});
+			return promise;
+		}
+
+		runAsync1()
+		.then(function(data) {
+			console.log(data);
+			return runAsync2();
+		})
+		.then(function(data) {
+			console.log(data);
+			return runAsync3();
+		})
+		.then(function(data) {
+			console.log(data);
+		});
+
+		
+		</script>
+	</body>
+</html>
