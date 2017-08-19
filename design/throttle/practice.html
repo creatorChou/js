@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>throttle</title>
+		<style>
+			div {
+				width: 100px;
+				height: 100px;
+			}
+			#d1 {
+				position: relative;
+				background: red;
+			}
+			#d2 {
+				background: blue;
+				position: absolute;
+				top: 100px;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="d1">
+			<div id="d2"></div>
+		</div>
+		<script src="../jquery-2.0.3.js"></script>
+		<script>
+		$(function() {
+			var throttle = function() {
+				var isClear = arguments[0], fn;
+				if(typeof isClear === 'boolean') {
+					fn = arguments[1];
+					fn.__throttleID && clearTimeout(fn.__throttleID);
+				} else {
+					fn = isClear;
+					var params = arguments[1];
+					var p = $.extend({
+						context: null,
+						args: [],
+						time: 300
+					}, params);
+					arguments.callee(true, fn);
+					fn.__throttleID = setTimeout(function() {
+						fn.apply(p.context, p.args);
+					}, p.time);
+				}
+			}
+
+			var $d1 = $('#d1'),
+				$d2 = $('#d2');
+
+			var showD2 = function() {
+				$d2.show();
+			}
+			var hideD2 = function() {
+				$d2.hide();
+			}
+
+			$d1.hover(function() {
+				throttle(true, hideD2);
+				throttle(showD2, {time: 100});
+			}, function() {
+				throttle(true, showD2);
+				throttle(hideD2, {time: 100});
+			});
+		});
+
+		</script>
+	</body>
+</html>

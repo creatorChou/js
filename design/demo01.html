@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>throttle</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<script>
+			var Waiter = function() {
+				//要执行的队列
+				var dfd = [],
+					//成功队列
+					doneArr = [],
+					//失败队列
+					failArr = [],
+					//slice
+					slice = Array.prototype.slice;
+
+				var Promise = function() {
+					this.resolved = false;
+					this.rejected = false;
+				}
+
+				Promise.prototype = {
+					resolve: function() {
+						this.resolved = true;
+						if(!dfd.length) {
+							return;
+						}
+						for(var i=dfd.length-1; i>=0; i--) {
+							if(dfd[i] && !dfd[i].resolved || dfd[i].rejected) {
+								return;
+							}
+							dfd.splice(i ,1);
+						}
+						_exec(doneArr);
+					},
+					reject: function() {
+						this.rejected = true;
+						if(!dfd.length) {
+							return;
+						}
+						dfd.splice(0);
+						_exec(failArr);
+					}
+				}
+
+				this.Deffered = function() {
+					return new Promise();
+				}
+
+				function _exec (arr) {
+					for(var i=0; i<arr.length; i++) {
+						try {
+							arr[i] && arr[i]();
+						} catch(e) {}
+					}
+				}
+
+				this.when = function() {
+					dfd = slice.call(arguments);
+					var i = dfd.length;
+					for(-- i; i >= 0; i --) {
+						if(!dfd[i] || dfd[i].resolved || dfd[i].rejected || !dfd[i] instanceof Promise) {
+							dfd.splice(i, 1);
+						}
+					}
+					return this;
+				};
+
+				this.done = function() {
+					doneArr = doneArr.concat(slice.call(arguments));
+					return this;
+				};
+
+				this.fail = function() {
+					failArr = failArr.concat(slice.call(arguments));
+					return this;
+				};
+
+			}
+
+			var waiter = new Waiter();
+			var first = function() {
+				var dtd = waiter.Deffered();
+				setTimeout(function() {
+					console.log('first resolved');
+					dtd.resolve();
+				},4000);
+				return dtd;
+			}();
+
+			var second = function() {
+				var dtd = waiter.Deffered();
+				setTimeout(function() {
+					console.log('second resolved');
+					dtd.resolve();
+				},2000);
+				return dtd;
+			}();
+
+			waiter.
+				when(first, second)
+				.done(function() {
+					console.log('success');
+				}, function() {
+					console.log('success again');
+				});
+		</script>
+	</body>
+</html>
