@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>mix</title>
+</head>
+<body>
+  <script>
+      function mix (target, source) {
+          var args = [].slice.call(arguments),
+              ride = typeof args[args.length - 1] === 'boolean' ? args.pop() : true,
+              i = 1,
+              key;
+
+          if(args.length === 1) {
+              target = !this.window ? this : {};
+              i = 0;
+          }
+
+          while((source = args[i++])) {
+              for(key in source) {
+                  if(ride || !(key in target)) {
+                      target[key] = source[key];
+                  }
+              }
+          }
+          return target;
+      }
+
+      var a = {
+          aa: 1,
+          ab: 2
+      }
+
+      var b = {
+          bb: 3,
+          bc: 4
+      }
+
+      var c = mix(a, b);
+      console.log(c);
+      console.log(c === a)
+  </script>
+</body>
+</html>

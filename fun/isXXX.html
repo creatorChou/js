@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>isXXX</title>
+</head>
+<body>
+  <div id="box"></div>
+  <script>
+    var isArray = Array.isArray ? Array.isArray :
+        function(o) {
+            try {
+                return Object.prototype.toString.call(o) === '[object Array]';
+            } catch(e) {}
+            return false;
+        }
+
+    function isNaN(o) {
+        return o !== o;
+    }
+
+    function isNull(o) {
+        return o === null;
+    }
+
+    function isUndefined(o) {
+        return o === void 0;
+    }
+
+    //[object HTMLDocument]
+    console.log(document.toString());
+
+    // [object Arguments]
+    (function() {
+        console.log(arguments.toString())
+    })();
+
+    // [object HTMLBodyElement]
+    console.log(document.body.toString())
+
+    // [object HTMLDivElement]
+    console.log(document.getElementById('box').toString())
+
+    // [object Window]
+    console.log(Object.prototype.toString.call(window));
+
+    // [object NodeList]
+    console.log(document.querySelectorAll('#box').toString())
+
+    var class2type = {
+        '[objectHTMLDocument]': 'Document',
+        '[objectHTMLCollection]': 'NodeList',
+        '[objectStaticNodeList]': 'NodeList',
+        '[objectIXMLDOMNodeList]': 'NodeList',
+        '[objectDOMWinodw]': 'Window',
+        '[null]': 'Null',
+        'NaN': 'NaN',
+        'undefined': 'Undefined'
+    }
+
+    function type (obj, str) {
+        var result = class2type[ (obj == null || obj !== obj) ? obj : Object.prototype.toString.call(obj) ] || obj.nodeName || '#';
+        if(result.charAt(0) === '#') {
+            if(obj == obj.document && obj.document != obj) {
+                result = 'Window';
+            } else if(obj.nodeType === 9) {
+                result = 'Document';
+            } else if(obj.callee) {
+                result = 'Arguments';
+            } else if(isFinite(obj.length) && obj.item) {
+                result = 'NodeList';
+            } else {
+                result = Object.prototype.toString.call(obj).slice(8, -1);
+            }
+        }
+        if(str) {
+            return str === result;
+        }
+        return result;
+    }
+
+    console.log(type(document.querySelectorAll('#box')));
+    console.log(type(window));
+    console.log(type(document.getElementById('box')));
+    console.log(window == window.document);
+  </script>
+</body>
+</html>

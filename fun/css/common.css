@@ -1,0 +1,25 @@
+.primary {
+  color: #f97f0e;
+}
+.primary2 {
+  color: #cf6605;
+}
+.primary3 {
+  color: #fa9940;
+}
+.primary4 {
+  color: #f9cd0e;
+}
+.primary5 {
+  color: #ff7f08;
+}
+html,
+body {
+  font-size: 14px;
+}
+.pic1 {
+  border-radius: 5px;
+}
+.pic2 {
+  border-radius: 10px;
+}

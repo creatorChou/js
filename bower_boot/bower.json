@@ -1,0 +1,21 @@
+{
+  "name": "bower_boot",
+  "homepage": "https://github.com/creatorChou/js",
+  "authors": [
+    "Shuo.zhou <523547335@qq.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7"
+  }
+}

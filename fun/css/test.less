@@ -1,0 +1,35 @@
+@color: #f97f0e;
+
+@font-size: 14px;
+
+.primary {
+    color: @color;
+}
+.primary2 {
+    color: darken(@color, 10%);
+}
+.primary3 {
+    color: lighten(@color, 10%);
+}
+.primary4 {
+    color: spin(@color, 20%);
+}
+.primary5 {
+    color: saturate(@color, 50%);
+}
+.rounded-corners (@radius: 5px) {
+    border-radius: @radius;
+}
+
+html,
+body {
+    font-size: @font-size;
+}
+
+.pic1 {
+    .rounded-corners;
+}
+
+.pic2 {
+    .rounded-corners(10px);
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>toArray</title>
+</head>
+<body>
+  <script>
+      var toArray = document.dispatchEvent ? 
+          function (nodes, start, end) {
+              return Array.prototype.call(nodes, start, end);
+          } :
+          function (nodes, start, end) {
+              var ret = [],
+                  n = nodes.length;
+
+              if(end === void 0 || typeof end === 'number' || isFinite(end)) {
+                  start = parseInt(start, 10) || 0;
+                  end = end == void 0 ? n : parseInt(end, 10);
+                  if(start < 0) {
+                      start += n;
+                  }
+                  if(end > n) {
+                      end = n;
+                  }
+                  if(end < 0) {
+                      end += n;
+                  }
+                  for(var i = start; i < end; i++) {
+                      ret[i - start] = nodes[i];
+                  }
+              }
+
+              return ret;
+          };
+
+		var hyphenateRE = /([^-])([A-Z])/g;
+		var hyphenate = function (str) {
+		  return str
+			.replace(hyphenateRE, '$1-$2')
+//			.replace(hyphenateRE, '$1-$2')
+			.toLowerCase()
+		}
+
+		console.log( hyphenate('My-CamelCaseTest') )
+
+		1
+      ? 2 > 1
+        ? console.log(1)
+        : console.log(2)
+      : console.log(3)
+  </script>
+</body>
+</html>
